@@ -8,4 +8,5 @@ app.controller('MainController', function($scope){
         { nev: 'Ragnar', eletkor:30, csajok:['Lagherta', 'Aslaugh']},
         { nev: 'Bulgasal', eletkor:600, csajok:['Min Si-ho']}
     ]
+    console.log($scope.emberek)
 })

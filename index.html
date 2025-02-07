@@ -8,26 +8,68 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/maincontroller.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <h1>Angular.js start</h1>
-    <div ng-controller="MainController">
+    <div class="container" ng-controller="MainController">
         <h2>Hello! {{'Ez itt egy ' + 'Angular művelet' + 'végrehajtása lesz'}}</h2>
         <h3>{{szoveg}}</h3>
         <hr>
         <h2>Változók kapcsolata az input mezőkkel</h2>
         <h3>Szöveg:</h3>
-        <input type="text" ng-model="szoveg" style="width: 300px;">
+        <input type="text" ng-model="szoveg" style="width: 410px;">
         <hr>
         <h2>Automatikusan generált lista</h2>
         <ul>
             <li ng-repeat="ember in emberek">
                 <span>
+                    {{$index + 1 + '.'}}
                     <b>{{ember.nev}}</b>
                     ({{ember.eletkor}} éves)
                 </span>
             </li>
         </ul>
+        <hr>
+        <h2>További logikai változók</h2>
+        <p>$first, $middle, $last, $odd, $even</p>
+        <!-- Ezek a változók az ng-repeat változói -->
+        <ul>
+            <li ng-repeat="ember in emberek">
+                <span>
+                    {{$index}} ({{$first}}, {{$middle}}, {{$last}}, {{$odd}}, {{$even}})
+                    <b>{{ember.nev}}</b>
+                    ({{ember.eletkor}} éves)
+                </span>
+            </li>
+        </ul>
+        <hr>
+        <h2>Feltételes lista létrehozása</h2>
+        <ul>
+            <li ng-repeat="ember in emberek">
+                <span ng-if="$even">
+                    <b>{{index + 1}}. {{ember.nev}}</b>
+                    ({{ember.eletkor}} éves)
+                </span>
+
+                <span ng-if="$odd">
+                    <b>{{index + 1}}. {{ember.nev}}</b>
+                    ({{ember.eletkor}} éves)
+                </span>
+            </li>
+        </ul>
+        <hr>
+        <h2>Automatikusan generált legördülő lista</h2>
+        <!-- 
+            ng-model: szükséges a legördülő menühöz
+            ng-options:
+        -->
+        <b>Név: <select ng-model="valasztottEmber" ng-options="ember.nev for ember in emberek" onchange="$('#tehat').hide();$('#histruelove').val('')"></select></b>
+        <hr>
+        <b>Ezek voltak a barinők:</b>
+        <select ng-model="valasztottCsaj" onchange="$('#tehat').show()">
+            <option ng-repeat="csaj in valasztottEmber.csajok">{{csaj}}</option>
+        </select>
     </div>
 </body>
 </html>
